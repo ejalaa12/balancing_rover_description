@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot name="balancing_rover">
+
+
+  <!-- =================================================================== -->
+  <!--                        MAIN BODY FRAME                              -->
+  <!-- =================================================================== -->
+
+  <link name="rover_frame">
+    <inertial>
+        <mass value="0.3"/>
+        <inertia ixx="0.40625" ixy="0" ixz="0" iyy="0.1625" iyz="0" izz="0.55625" />
+    </inertial>
+
+    <collision name="rover_frame_collision">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/frame_collision.stl"/>
+      </geometry>
+    </collision>
+
+    <visual name="rover_frame_visual">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/frame.dae"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- =================================================================== -->
+  <!--                              WHEELS                                 -->
+  <!-- =================================================================== -->
+
+  <!-- Front Right Wheel -->
+
+  <link name="wheel_front_right">
+    <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="0.00652746" ixy="0" ixz="0" iyy="0.00652746" iyz="0" izz="0.01083451" />
+    </inertial>
+    <collision name="wheel_front_right_collision">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/wheel_collision.stl"/>
+      </geometry>
+    </collision>
+    <visual name="wheel_front_right_visual">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/wheel_slick.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint type="continuous" name="wheel_front_right_hinge">
+      <origin xyz="0.85 1 0"/>
+      <child link="wheel_front_right"/>
+      <parent link="rover_frame"/>
+      <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- Front Left Wheel -->
+
+  <link name="wheel_front_left">
+    <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="0.00652746" ixy="0" ixz="0" iyy="0.00652746" iyz="0" izz="0.01083451" />
+    </inertial>
+    <collision name="wheel_front_left_collision">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/wheel_collision.stl"/>
+      </geometry>
+    </collision>
+    <visual name="wheel_front_left_visual">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/wheel_slick.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint type="continuous" name="wheel_front_left_hinge">
+    <origin xyz="-0.85 1 0"/>
+    <child link="wheel_front_left"/>
+    <parent link="rover_frame"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- Back Right Wheel -->
+
+  <link name="wheel_back_right">
+    <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="0.00652746" ixy="0" ixz="0" iyy="0.00652746" iyz="0" izz="0.01083451" />
+    </inertial>
+    <collision name="wheel_back_right_collision">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/wheel_collision.stl"/>
+      </geometry>
+    </collision>
+    <visual name="wheel_back_right_visual">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/wheel_rough.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint type="continuous" name="wheel_back_right_hinge">
+    <origin xyz="0.85 -1 0"/>
+    <child link="wheel_back_right"/>
+    <parent link="rover_frame"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- Back Left Wheel -->
+
+  <link name="wheel_back_left">
+    <inertial>
+        <mass value="0.1"/>
+        <inertia ixx="0.00652746" ixy="0" ixz="0" iyy="0.00652746" iyz="0" izz="0.01083451" />
+    </inertial>
+    <collision name="wheel_back_left_collision">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/wheel_collision.stl"/>
+      </geometry>
+    </collision>
+    <visual name="wheel_back_left_visual">
+      <geometry>
+        <mesh filename="package://balancing_rover_description/meshes/wheel_rough.dae"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint type="continuous" name="wheel_back_left_hinge">
+    <origin xyz="-0.85 -1 0"/>
+    <child link="wheel_back_left"/>
+    <parent link="rover_frame"/>
+    <axis xyz="1 0 0"/>
+  </joint>
+
+  <!-- =================================================================== -->
+  <!--                              PENDULUM                               -->
+  <!-- =================================================================== -->
+  <link name="pendulum_stem">
+    <inertial>
+        <origin xyz="0 0 1.5"/>
+        <mass value="0.05"/>
+        <inertia ixx="0.037505" ixy="0" ixz="0" iyy="0.037505" iyz="0" izz="0.00001" />
+    </inertial>
+    <collision name="pendulum_stem_collision">
+      <origin xyz="0 0 1.5"/>
+      <geometry>
+        <cylinder radius="0.02" length="3"/>
+      </geometry>
+    </collision>
+    <visual name="pendulum_stem_visual">
+      <origin xyz="0 0 1.5"/>
+      <geometry>
+        <cylinder radius="0.02" length="3"/>
+      </geometry>
+    </visual>
+  </link>
+  <joint type="revolute" name="pendulum_stem_hinge">
+    <origin xyz="0 0 0.2"/>
+    <child link="pendulum_stem"/>
+    <parent link="rover_frame"/>
+    <axis xyz="1 0 0"/>
+    <limit lower="-1.57" upper="1.57" effort="300" velocity="100"/>
+  </joint>
+</robot>
