@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launch>
-  <node name="spawn_rover" pkg="gazebo_ros" type="spawn_model" args="-file $(find balancing_rover_description)/urdf/rover.urdf -urdf -model balancing_rover" output="screen">
-
-  </node>
+  <node name="spawn_rover" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model balancing_rover" output="screen"/>
 </launch>
